@@ -15,16 +15,32 @@ namespace CertExam
             {
                 Console.WriteLine("ThreadProc: {0}", i);
                 Thread.Sleep(0);
+               
             }
         }
+    
 
-        public static void Main()
+    public static void Main()
         {
-            Thread t = new Thread(new ParameterizedThreadStart(ThreadMethod));
-            t.Start(5);
+            bool stopped = false;
+
+            Thread t = new Thread(new ThreadStart(() =>
+            {
+                while (!stopped)
+                {
+                    Console.WriteLine("Running...");
+                    Thread.Sleep(5);
+                    
+                }
+            }));
+            t.Start();
+            Console.WriteLine("Press any key to exit");
+            Console.ReadKey();
+
+            stopped = true;
             t.Join();
 
-
+            Console.WriteLine("stop");
         }
 
 
