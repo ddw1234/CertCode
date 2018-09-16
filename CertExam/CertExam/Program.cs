@@ -7,44 +7,33 @@ using System.Threading.Tasks;
 
 namespace CertExam
 {
-    class Program
+
+    public static class Program
     {
-        public static void ThreadMethod(object o)
+        [ThreadStatic]
+        public static int _field;
+        public static void Main()
         {
-            for (int i = 0; i < (int)o; i++)
+            new Thread(() =>
             {
-                Console.WriteLine("ThreadProc: {0}", i);
-                Thread.Sleep(0);
-               
-            }
-        }
-    
-
-    public static void Main()
-        {
-            bool stopped = false;
-
-            Thread t = new Thread(new ThreadStart(() =>
-            {
-                while (!stopped)
+                for (int x = 0; x < 10; x++)
                 {
-                    Console.WriteLine("Running...");
-                    Thread.Sleep(5);
-                    
+                    _field++;
+                    Console.WriteLine("Thread A: {0}", _field);
                 }
-            }));
-            t.Start();
-            Console.WriteLine("Press any key to exit");
+            }).Start();
+
+            new Thread(() =>
+        {
+            for (int x = 0; x < 10; x++)
+            {
+                _field++;
+                Console.WriteLine("Thread B: {0}", _field);
+            }
+        }).Start();
+
             Console.ReadKey();
-
-            stopped = true;
-            t.Join();
-
-            Console.WriteLine("stop");
         }
-
-
-
-
     }
+
 }
