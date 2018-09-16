@@ -12,15 +12,12 @@ namespace CertExam
     {
         public static void Main()
         {
-            Task t = Task.Run(() =>
+            Task<int> t = Task.Run(() =>
             {
-                for (int x = 0; x < 100; x++)
-                {
-                    Console.WriteLine("x= {0}",x.ToString());
-                }
+                return 42;
             });
-            t.Wait();
-            //Console.ReadLine();
+            Console.WriteLine(t.Result);
+            Console.ReadLine();
         }
     }
 
