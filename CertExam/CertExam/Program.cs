@@ -12,11 +12,15 @@ namespace CertExam
     {
         public static void Main()
         {
-            ThreadPool.QueueUserWorkItem((s) =>
+            Task t = Task.Run(() =>
             {
-                Console.WriteLine("Working on a thread from threadpool");
+                for (int x = 0; x < 100; x++)
+                {
+                    Console.WriteLine("x= {0}",x.ToString());
+                }
             });
-            Console.ReadLine();
+            t.Wait();
+            //Console.ReadLine();
         }
     }
 
