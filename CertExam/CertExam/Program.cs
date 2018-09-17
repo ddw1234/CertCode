@@ -12,25 +12,29 @@ namespace CertExam
     {
         public static void Main()
         {
-            Task<Int32[]> parent = Task.Run(() =>
-            {
-                var results = new Int32[3];
-                TaskFactory tf = new TaskFactory(TaskCreationOptions.AttachedToParent,
-                TaskContinuationOptions.ExecuteSynchronously);
-                tf.StartNew(() => results[0] = 0);
-                tf.StartNew(() => results[1] = 1);
-                tf.StartNew(() => results[2] = 2);
-                return results;
+            Task[] tasks = new Task[3];
+            tasks[0] = Task.Run(() => {
+                Thread.Sleep(5);
+                Console.WriteLine("1");
+                Console.WriteLine(DateTime.Now.ToString());
+                return 1;
             });
 
-            var finalTask = parent.ContinueWith(
-                parentTask =>
-                {
-                    foreach (int i in parentTask.Result)
-                        Console.WriteLine(i);
-                });
+            tasks[1] = Task.Run(() => {
+                Thread.Sleep(10);
+                Console.WriteLine("2");
+                Console.WriteLine(DateTime.Now.ToString());
+                return 2;
+            });
 
-            finalTask.Wait();
+            tasks[2] = Task.Run(() => {
+                Thread.Sleep(1000);
+                Console.WriteLine("3");
+                Console.WriteLine(DateTime.Now.ToString());
+                return 3;
+            }
+            );
+            Task.WaitAll(tasks);
 
             Console.ReadLine();
 
