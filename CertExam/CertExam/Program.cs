@@ -12,18 +12,19 @@ namespace CertExam
     {
         public static void Main()
         {
-            Parallel.For(0, 10, i =>
-            {
-                Thread.Sleep(1000);
-            });
-            Console.WriteLine(DateTime.Now);
+            ParallelLoopResult result = Parallel.
+                For(0, 1000, (int i, ParallelLoopState loopState) =>
+                {
+                    if (i == 500)
+                    {
+                        Console.WriteLine("Breaking loop");
+                        Console.WriteLine(i);
+                        loopState.Break();
+                    }
 
-            var numbers = Enumerable.Range(0, 10);
-            Parallel.ForEach(numbers, i =>
-            {
-                Thread.Sleep(1000);
-            });
-            Console.WriteLine(DateTime.Now);
+                    Console.WriteLine(i);
+                    return;
+                });
 
 
             Console.ReadLine();
