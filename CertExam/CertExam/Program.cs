@@ -9,21 +9,19 @@ using System.Threading.Tasks;
 namespace CertExam
 {
 
-    public static class Program
+    public  class Program
     {
         public static void Main()
         {
-            string result = DownloadContent().Result;
-            Console.WriteLine(result);
+            var numbers = Enumerable.Range(0, 10);
+            var parallelResult = numbers.AsParallel()
+            .Where(i => i % 2 == 0)
+            .ToArray();
+            foreach (int i in parallelResult)
+                Console.WriteLine(i);
+            Console.ReadKey();
         }
-        public static async Task<string> DownloadContent()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                string result = await client.GetStringAsync("http://www.microsoft.com");
-                   return result;
-            }
-        }
+     
     }
 
 
