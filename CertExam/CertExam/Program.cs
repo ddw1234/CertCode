@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,23 +13,16 @@ namespace CertExam
     {
         public static void Main()
         {
-            ParallelLoopResult result = Parallel.
-                For(0, 1000, (int i, ParallelLoopState loopState) =>
-                {
-                    if (i == 500)
-                    {
-                        Console.WriteLine("Breaking loop");
-                        Console.WriteLine(i);
-                        loopState.Break();
-                    }
-
-                    Console.WriteLine(i);
-                    return;
-                });
-
-
-            Console.ReadLine();
-
+            string result = DownloadContent().Result;
+            Console.WriteLine(result);
+        }
+        public static async Task<string> DownloadContent()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync("http://www.microsoft.com");
+                   return result;
+            }
         }
     }
 
