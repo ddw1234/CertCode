@@ -17,10 +17,10 @@ namespace CertExam
             BlockingCollection<string> col = new BlockingCollection<string>();
             Task read = Task.Run(() =>
             {
-                while (true)
-                {
-                    Console.WriteLine(col.Take());
-                }
+               
+                    foreach (string v in col.GetConsumingEnumerable())
+                        Console.WriteLine(v);
+               
             });
 
             Task write = Task.Run(() =>
@@ -33,6 +33,11 @@ namespace CertExam
                 }
             });
             write.Wait();
+
+            foreach(var a in col)
+            {
+                Console.WriteLine(a);
+            }
 
             Console.ReadKey();
         }
