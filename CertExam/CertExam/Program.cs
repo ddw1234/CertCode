@@ -14,26 +14,39 @@ namespace CertExam
     {
         public static void Main()
         {
-            int n = 0;
-            object _lock = new object();
+            object lockA = new object();
+            object lockB = new object();
             var up = Task.Run(() =>
             {
-                for (int i = 0; i < 100; i++)
-                    lock (_lock)
-                        n++;
-                Console.WriteLine(n);
+                lock (lockA)
+                {
+                    Console.WriteLine("1");
+                    Console.WriteLine(DateTime.Now);
+                    Thread.Sleep(1000);
+                    Console.WriteLine(DateTime.Now);
+                    lock (lockB)
+                    {
+                        Console.WriteLine("Lockedde A and B");
+                    }
+                }
             });
 
-            Console.WriteLine( up.Id.ToString());
-            for (int i = 0; i < 100; i++)
+            
 
-                lock (_lock)
-                    n--;
-            Console.WriteLine(n);
-
-            Console.WriteLine(up.Id.ToString());
+            lock (lockB)
+            {
+                Console.WriteLine("2");
+                Console.WriteLine(DateTime.Now);
+               
+                Console.WriteLine(DateTime.Now);
+                lock (lockA)
+                {
+                    Console.WriteLine("Locked A and B");
+                }
+            }
             up.Wait();
-            Console.WriteLine(n);
+
+
 
             Console.ReadLine();
         }
