@@ -15,24 +15,18 @@ namespace CertExam
         static int value = 1;
         public static void Main()
         {
-            Task t1 = Task.Run(() =>
+            CancellationTokenSource cancellationTokenSource =new CancellationTokenSource();
+
+            CancellationToken token = cancellationTokenSource.Token;
+
+            Task task = Task.Run(() =>
             {
-                if (value == 1)
+                while (!token.IsCancellationRequested)
                 {
-                    // Removing the following line will change the output
-                    Thread.Sleep(1000);
-                    value = 2;
+                    Console.Write("*");
+                    Thread.Sleep(100);
                 }
-            });
-
-          
-
-            Task t2 = Task.Run(() =>
-            {
-                value = 3;
-            });
-            Task.WaitAll(t1, t2);
-            Console.WriteLine(value); // Displays 2
+            }, token);
 
 
 
