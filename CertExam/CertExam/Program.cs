@@ -17,14 +17,8 @@ namespace CertExam
         public static void Main()
         {
             Pub p = new Pub();
-            //p.OnChange += () => Console.WriteLine("Event raised to method 1");
-            //p.OnChange += () => Console.WriteLine("Event raised to method 2");
-
-            p.OnChange += (null);
+            p.OnChange += (sender, e) => Console.WriteLine("Event raised: {0}", e.Value);
             p.Raise();
-
-            //AB a = new AB();
-            //a.CreateAndRaise();
 
 
             Console.ReadLine();
@@ -34,44 +28,28 @@ namespace CertExam
 
     }
 
+    public class MyArgs : EventArgs
+    {
+        public MyArgs(int value)
+        {
+            Value = value;
+        }
+        public int Value { get; set; }
+    }
     public class Pub
     {
-        public event Action OnChange = delegate { };
+        public event EventHandler<MyArgs> OnChange = delegate { };
         public void Raise()
         {
-            OnChange();
+            OnChange(this, new MyArgs(42));
         }
     }
 
-    public class AB
-    {
-        public void CreateAndRaise()
-        {
-            Pub p = new Pub();
-            p.OnChange += () => Console.WriteLine("Event raised to method 1");
-            p.OnChange += () => Console.WriteLine("Event raised to method 2");
-            p.Raise();
-        }
-    }
-
-
-    //public class Pub
-    //{
-    //    public Action OnChange { get; set; }
-    //    public void Raise()
-    //    {
-    //        //OnChange();
-    //        if (OnChange != null)
-    //        {
-    //            OnChange();
-    //        }
-    //    }
-    //}
     //public void CreateAndRaise()
     //{
     //    Pub p = new Pub();
-    //    p.OnChange += () => Console.WriteLine("Event raised to method 1");
-    //    p.OnChange += () => Console.WriteLine("Event raised to method 2");
+    //    p.OnChange += (sender, e)
+    //    => Console.WriteLine("Event raised: { 0}”, e.Value");
     //    p.Raise();
     //}
 
