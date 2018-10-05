@@ -16,13 +16,10 @@ namespace CertExam
 
         public static void Main()
         {
-            Action<int, int> calc = (x, y) =>
-            {
-                Console.WriteLine(x + y);
-            };
-
-
-            calc(3, 4);
+            Pub p = new Pub();
+            p.OnChange += () => Console.WriteLine("Event raised to method 1");
+            p.OnChange += () => Console.WriteLine("Event raised to method 2");
+            p.Raise();
 
 
             Console.ReadLine();
@@ -31,6 +28,26 @@ namespace CertExam
      
 
     }
+
+
+    public class Pub
+    {
+        public Action OnChange { get; set; }
+        public void Raise()
+        {
+            if (OnChange != null)
+            {
+                OnChange();
+            }
+        }
+    }
+    //public void CreateAndRaise()
+    //{
+    //    Pub p = new Pub();
+    //    p.OnChange += () => Console.WriteLine("Event raised to method 1");
+    //    p.OnChange += () => Console.WriteLine("Event raised to method 2");
+    //    p.Raise();
+    //}
 
 
 }
