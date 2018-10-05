@@ -16,11 +16,13 @@ namespace CertExam
 
         public static void Main()
         {
-            bool a = true;
-            bool b = false;
-            Console.WriteLine(a ^ a); // False
-            Console.WriteLine(a ^ b); // True
-            Console.WriteLine(b ^ b); // False
+            Action<int, int> calc = (x, y) =>
+            {
+                Console.WriteLine(x + y);
+            };
+
+
+            calc(3, 4);
 
 
             Console.ReadLine();
