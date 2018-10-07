@@ -12,46 +12,36 @@ namespace CertExam
 
     public class Program
     {
-       
+
 
         public static void Main()
         {
-            Pub p = new Pub();
-            p.OnChange += (sender, e) => Console.WriteLine("Event raised: {0}", e.Value);
-            p.Raise();
+            string s = Console.ReadLine();
+            try
+            {
+                int i = int.Parse(s);
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("You need to enter a value");
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("{0} is not a valid number.Please try again", s);
+            }
+            finally
+            {
+                Console.WriteLine("Program complete.");
+            }
 
 
             Console.ReadLine();
         }
 
-     
+
 
     }
 
-    public class MyArgs : EventArgs
-    {
-        public MyArgs(int value)
-        {
-            Value = value;
-        }
-        public int Value { get; set; }
-    }
-    public class Pub
-    {
-        public event EventHandler<MyArgs> OnChange = delegate { };
-        public void Raise()
-        {
-            OnChange(this, new MyArgs(42));
-        }
-    }
-
-    //public void CreateAndRaise()
-    //{
-    //    Pub p = new Pub();
-    //    p.OnChange += (sender, e)
-    //    => Console.WriteLine("Event raised: { 0}”, e.Value");
-    //    p.Raise();
-    //}
 
 
 }
