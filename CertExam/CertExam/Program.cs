@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,19 +17,19 @@ namespace CertExam
 
         public static void Main()
         {
+            ExceptionDispatchInfo possibleException = null;
             try
             {
-                int i = ReadAndParse();
-                Console.WriteLine("Parsed: {0}", i);
+                string s = Console.ReadLine();
+                int.Parse(s);
             }
-            catch (FormatException e)
+            catch (FormatException ex)
             {
-                Console.WriteLine("Message: {0}",e.Message);
-                Console.WriteLine("StackTrace: {0}", e.StackTrace);
-                Console.WriteLine("HelpLink: {0}", e.HelpLink);
-                Console.WriteLine("InnerException: {0}", e.InnerException);
-                Console.WriteLine("TargetSite: {0}", e.TargetSite);
-                Console.WriteLine("Source: {0}", e.Source);
+                possibleException = ExceptionDispatchInfo.Capture(ex);
+            }
+            if (possibleException != null)
+            {
+                possibleException.Throw();
             }
 
 

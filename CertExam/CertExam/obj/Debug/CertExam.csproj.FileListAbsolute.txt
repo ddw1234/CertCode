@@ -3,3 +3,4 @@ E:\testdirect\git\Certificationcode\CertExam\CertExam\bin\Debug\CertExam.exe
 E:\testdirect\git\Certificationcode\CertExam\CertExam\bin\Debug\CertExam.pdb
 E:\testdirect\git\Certificationcode\CertExam\CertExam\obj\Debug\CertExam.exe
 E:\testdirect\git\Certificationcode\CertExam\CertExam\obj\Debug\CertExam.pdb
+E:\testdirect\git\Certificationcode\CertExam\CertExam\obj\Debug\CertExam.csprojResolveAssemblyReference.cache
