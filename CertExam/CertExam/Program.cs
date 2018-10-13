@@ -14,26 +14,25 @@ namespace CertExam
     public class Program
     {
 
-        [Flags]
-        enum Days
+        public struct Point
         {
-            None = 0x0,
-            Sunday = 0x1,
-            Monday = 0x2,
-            Tuesday = 0x4,
-            Wednesday = 0x8,
-            Thursday = 0x10,
-            Friday = 0x20,
-            Saturday = 0x40
+            public int x, y;
+            public Point(int p1, int p2)
+            {
+                x = p1;
+                y = p2;
+            }
         }
         public static void Main()
         {
-           
-        //Days readingDays = Days.Monday | Days.Saturday | Days.Friday | Days.Sunday | Days.Tuesday | Days.Wednesday;
+            Point p = new Point(5,7);
+            
 
-       Days readingDays = Days.Monday | Days.Sunday;
+            Console.WriteLine(p.x.ToString(), p.y);
 
-            Console.WriteLine(readingDays);
+            
+
+       
 
         Console.ReadLine();
         }
