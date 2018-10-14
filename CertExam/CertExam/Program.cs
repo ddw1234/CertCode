@@ -14,38 +14,46 @@ namespace CertExam
     public class Program
     {
 
-        public struct Point
-        {
-            public int x, y;
-            public Point(int p1, int p2)
-            {
-                x = p1;
-                y = p2;
-            }
-        }
+       
         public static void Main()
         {
-            Point p = new Point(5,7);
+
+            MyGenericClass<int> intGenericClass = new MyGenericClass<int>(10);
+
+            int val = intGenericClass.genericMethod(200);
+
+            intGenericClass.genericProperty = 24;
+
             
 
-            Console.WriteLine(p.x.ToString(), p.y);
+            int kt = intGenericClass.genericProperty;
+            Console.WriteLine(kt);
 
-            
-
-       
-
-        Console.ReadLine();
+            Console.ReadLine();
         }
 
-        private static int ReadAndParse()
+        
+
+    }
+
+    class MyGenericClass<T>
+    {
+        private T genericMemberVariable;
+
+        public MyGenericClass(T value)
         {
-            string s = Console.ReadLine();
-            int i = int.Parse(s);
-            return i;
+            genericMemberVariable = value;
         }
 
+        public T genericMethod(T genericParameter)
+        {
+            Console.WriteLine("Parameter type: {0}, value: {1}", typeof(T).ToString(), genericParameter);
+            Console.WriteLine("Return type: {0}, value: {1}", typeof(T).ToString(), genericMemberVariable);
 
+            return genericMemberVariable;
+        }
 
+        public T genericProperty { get; set; }
     }
 
 
