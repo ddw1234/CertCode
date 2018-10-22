@@ -11,50 +11,37 @@ using System.Threading.Tasks;
 namespace CertExam
 {
 
-    public class Program
+    class Base
     {
-
-       
-        public static void Main()
+        public void Execute() { Console.WriteLine("Base.Execute"); }
+    }
+    class Derived : Base
+    {
+        public new void Execute() { Console.WriteLine("Derived.Execute"); }
+    }
+    class Program
+    {
+        static void Main(string[] args)
         {
-
-            MyGenericClass<int> intGenericClass = new MyGenericClass<int>(10);
-
-            int val = intGenericClass.genericMethod(200);
-
-            intGenericClass.genericProperty = 24;
-
+            Base b = new Base();
+            b.Execute();
+            b = new Derived();
+            b.Execute();
             
 
-            int kt = intGenericClass.genericProperty;
-            Console.WriteLine(kt);
+            Derived d = new Derived();
+            d.Execute();
+            
+            
+           
 
             Console.ReadLine();
         }
 
         
-
     }
 
-    class MyGenericClass<T>
-    {
-        private T genericMemberVariable;
 
-        public MyGenericClass(T value)
-        {
-            genericMemberVariable = value;
-        }
-
-        public T genericMethod(T genericParameter)
-        {
-            Console.WriteLine("Parameter type: {0}, value: {1}", typeof(T).ToString(), genericParameter);
-            Console.WriteLine("Return type: {0}, value: {1}", typeof(T).ToString(), genericMemberVariable);
-
-            return genericMemberVariable;
-        }
-
-        public T genericProperty { get; set; }
-    }
 
 
 
